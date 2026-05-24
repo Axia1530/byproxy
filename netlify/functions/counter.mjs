@@ -1,5 +1,3 @@
-import { getStore } from "@netlify/blobs";
-
 export default async (request) => {
   const headers = {
     "Access-Control-Allow-Origin": "*",
@@ -9,12 +7,27 @@ export default async (request) => {
   const url = new URL(request.url);
   const action = url.searchParams.get("action");
 
-  const store = getStore("pca");
-  let count = parseInt((await store.get("signatures")) || "0");
+  const UPSTASH_URL = process.env.UPSTASH_URL;
+  const UPSTASH_TOKEN = process.env.UPSTASH_TOKEN;
+
+  if (!UPSTASH_URL || !UPSTASH_TOKEN) {
+    return new Response(JSON.stringify({ count: 0, error: "Not configured" }), { headers });
+  }
+
+  let count = 0;
 
   if (action === "increment") {
-    count += 1;
-    await store.set("signatures", String(count));
+    const res = await fetch(`${UPSTASH_URL}/incr/pca-signatures`, {
+      headers: { Authorization: `Bearer ${UPSTASH_TOKEN}` },
+    });
+    const data = await res.json();
+    count = data.result || 0;
+  } else {
+    const res = await fetch(`${UPSTASH_URL}/get/pca-signatures`, {
+      headers: { Authorization: `Bearer ${UPSTASH_TOKEN}` },
+    });
+    const data = await res.json();
+    count = data.result ? parseInt(data.result) : 0;
   }
 
   return new Response(JSON.stringify({ count }), { headers });
