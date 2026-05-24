@@ -14,7 +14,7 @@ function getTwinId() {
 // ── COUNTER ──────────────────────────────────────────────
 async function getCount() {
   try {
-    const res = await fetch('/.netlify/functions/counter');
+    const res = await fetch('/api/counter');
     const data = await res.json();
     return data.count || 0;
   } catch {
@@ -24,7 +24,7 @@ async function getCount() {
 
 async function incrementCount() {
   try {
-    const res = await fetch('/.netlify/functions/counter?action=increment');
+    const res = await fetch('/api/counter?action=increment');
     const data = await res.json();
     return data.count || 0;
   } catch {
