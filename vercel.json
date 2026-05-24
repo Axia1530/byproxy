@@ -1,0 +1,11 @@
+{
+  "cleanUrls": true,
+  "trailingSlash": false,
+  "routes": [
+    { "src": "/", "dest": "/index.html" },
+    { "src": "/about", "dest": "/about.html" },
+    { "src": "/covenant", "dest": "/covenant.html" },
+    { "src": "/activated", "dest": "/activated.html" },
+    { "src": "/void", "dest": "/void.html" }
+  ]
+}
