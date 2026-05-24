@@ -112,7 +112,10 @@ export default async (request) => {
     }
 
     const post = JSON.parse(result.result);
-    if (post.twinId !== twinId) {
+    const adminId = process.env.ADMIN_ID;
+    const isAdmin = adminId && twinId === adminId;
+
+    if (!isAdmin && post.twinId !== twinId) {
       return new Response(JSON.stringify({ error: "Unauthorized" }), { headers, status: 403 });
     }
 
