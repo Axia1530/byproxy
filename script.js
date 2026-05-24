@@ -14,15 +14,14 @@ function getTwinId() {
 // ── COUNTER ──────────────────────────────────────────────
 const COUNTER_NAMESPACE = 'byproxy-pca';
 const COUNTER_KEY = 'covenants';
-const BASE_COUNT = 14382; // aesthetic starting offset
 
 async function getCount() {
   try {
     const res = await fetch(`https://api.counterapi.dev/v1/${COUNTER_NAMESPACE}/${COUNTER_KEY}`);
     const data = await res.json();
-    return (data.value || 0) + BASE_COUNT;
+    return data.value || 0;
   } catch {
-    return BASE_COUNT + parseInt(localStorage.getItem('pca_local_count') || '0');
+    return parseInt(localStorage.getItem('pca_local_count') || '0');
   }
 }
 
@@ -30,11 +29,11 @@ async function incrementCount() {
   try {
     const res = await fetch(`https://api.counterapi.dev/v1/${COUNTER_NAMESPACE}/${COUNTER_KEY}/up`);
     const data = await res.json();
-    return (data.value || 0) + BASE_COUNT;
+    return data.value || 0;
   } catch {
     const local = parseInt(localStorage.getItem('pca_local_count') || '0') + 1;
     localStorage.setItem('pca_local_count', String(local));
-    return BASE_COUNT + local;
+    return local;
   }
 }
 
