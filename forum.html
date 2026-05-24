@@ -1,0 +1,669 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Public Record — PCA Official Portal</title>
+  <link rel="stylesheet" href="styles.css" />
+  <style>
+    .forum-main {
+      max-width: 780px;
+      margin: 0 auto;
+      padding: 72px 32px 100px;
+    }
+
+    /* ── SUBMIT FORM ── */
+    .submit-form {
+      background: var(--white);
+      border: 1px solid var(--border);
+      padding: 36px 40px;
+      margin-bottom: 56px;
+    }
+    .form-row { margin-bottom: 20px; }
+    .form-label {
+      display: block;
+      font-size: 10px;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: var(--text-faint);
+      margin-bottom: 8px;
+    }
+    .form-input, .form-textarea {
+      width: 100%;
+      border: 1px solid var(--border);
+      background: var(--off-white);
+      padding: 10px 14px;
+      font-family: 'Source Sans 3', sans-serif;
+      font-size: 14px;
+      color: var(--text-dark);
+      outline: none;
+      transition: border-color 0.2s, background 0.2s;
+    }
+    .form-input:focus, .form-textarea:focus {
+      border-color: var(--blue-gov);
+      background: var(--white);
+    }
+    .form-input.twin-input {
+      font-family: 'Cinzel', serif;
+      font-size: 13px;
+      letter-spacing: 0.06em;
+    }
+    .form-textarea {
+      height: 110px;
+      resize: vertical;
+      line-height: 1.6;
+    }
+    .char-count {
+      font-size: 11px;
+      color: var(--text-faint);
+      text-align: right;
+      margin-top: 4px;
+    }
+    .image-upload-area {
+      border: 1px dashed var(--border);
+      background: var(--off-white);
+      padding: 20px;
+      text-align: center;
+      cursor: pointer;
+      transition: border-color 0.2s, background 0.2s;
+      position: relative;
+    }
+    .image-upload-area:hover { border-color: var(--blue-gov); background: var(--blue-faint); }
+    .image-upload-area input[type="file"] {
+      position: absolute; inset: 0; opacity: 0; cursor: pointer; width: 100%; height: 100%;
+    }
+    .upload-label {
+      font-size: 12px;
+      color: var(--text-faint);
+      letter-spacing: 0.06em;
+      pointer-events: none;
+    }
+    .image-preview {
+      display: none;
+      margin-top: 12px;
+      position: relative;
+    }
+    .image-preview img {
+      max-width: 100%;
+      max-height: 200px;
+      object-fit: contain;
+      border: 1px solid var(--border);
+    }
+    .remove-image {
+      position: absolute;
+      top: 4px; right: 4px;
+      background: var(--blue-deep);
+      color: white;
+      border: none;
+      width: 22px; height: 22px;
+      font-size: 12px;
+      cursor: pointer;
+      display: flex; align-items: center; justify-content: center;
+    }
+    .btn-submit {
+      width: 100%;
+      background: var(--blue-gov);
+      color: var(--white);
+      padding: 14px;
+      font-family: 'Source Sans 3', sans-serif;
+      font-size: 11px;
+      font-weight: 600;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      border: none;
+      cursor: pointer;
+      transition: background 0.2s;
+      margin-top: 4px;
+    }
+    .btn-submit:hover { background: var(--blue-deep); }
+    .btn-submit:disabled { opacity: 0.5; cursor: not-allowed; }
+
+    /* ── POSTS ── */
+    .posts-label {
+      font-size: 11px;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--text-faint);
+      margin-bottom: 20px;
+      padding-bottom: 12px;
+      border-bottom: 1px solid var(--border);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+    .posts-count { font-family: 'Cinzel', serif; }
+
+    .post-card {
+      background: var(--white);
+      border: 1px solid var(--border);
+      margin-bottom: 2px;
+      transition: border-color 0.2s;
+    }
+    .post-card:hover { border-color: var(--blue-light); }
+
+    .post-header {
+      padding: 14px 20px 10px;
+      border-bottom: 1px solid var(--light-gray);
+      display: flex;
+      justify-content: space-between;
+      align-items: baseline;
+      gap: 12px;
+    }
+    .post-twin {
+      font-family: 'Cinzel', serif;
+      font-size: 12px;
+      color: var(--blue-gov);
+      letter-spacing: 0.06em;
+    }
+    .post-time {
+      font-size: 11px;
+      color: var(--text-faint);
+      flex-shrink: 0;
+    }
+
+    .post-body { padding: 16px 20px; }
+    .post-text {
+      font-size: 14px;
+      color: var(--text-mid);
+      line-height: 1.75;
+      font-weight: 300;
+      white-space: pre-wrap;
+      word-break: break-word;
+      margin-bottom: 12px;
+    }
+    .post-text:last-child { margin-bottom: 0; }
+    .post-image {
+      max-width: 100%;
+      max-height: 360px;
+      object-fit: contain;
+      border: 1px solid var(--border);
+      display: block;
+      margin-top: 12px;
+      cursor: pointer;
+    }
+    .post-image-placeholder {
+      height: 60px;
+      background: var(--light-gray);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 11px;
+      color: var(--text-faint);
+      letter-spacing: 0.08em;
+      margin-top: 12px;
+      cursor: pointer;
+    }
+
+    .post-footer {
+      padding: 8px 20px 12px;
+      display: flex;
+      justify-content: flex-end;
+    }
+    .btn-withdraw {
+      background: none;
+      border: none;
+      font-size: 10px;
+      color: var(--text-faint);
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      cursor: pointer;
+      padding: 4px 0;
+      transition: color 0.2s;
+    }
+    .btn-withdraw:hover { color: var(--blue-gov); }
+
+    /* ── DELETE MODAL ── */
+    .modal-overlay {
+      display: none;
+      position: fixed;
+      inset: 0;
+      background: rgba(0,0,0,0.4);
+      z-index: 200;
+      align-items: center;
+      justify-content: center;
+    }
+    .modal-overlay.visible { display: flex; }
+    .modal-box {
+      background: var(--white);
+      border: 1px solid var(--border);
+      padding: 40px;
+      max-width: 440px;
+      width: 90%;
+    }
+    .modal-title {
+      font-family: 'Cinzel', serif;
+      font-size: 12px;
+      letter-spacing: 0.16em;
+      text-transform: uppercase;
+      color: var(--blue-gov);
+      margin-bottom: 12px;
+    }
+    .modal-text {
+      font-size: 13px;
+      color: var(--text-light);
+      margin-bottom: 20px;
+      line-height: 1.7;
+      font-weight: 300;
+    }
+    .modal-input {
+      width: 100%;
+      border: 1px solid var(--border);
+      background: var(--off-white);
+      padding: 10px 14px;
+      font-family: 'Cinzel', serif;
+      font-size: 13px;
+      letter-spacing: 0.06em;
+      color: var(--text-dark);
+      outline: none;
+      margin-bottom: 16px;
+      transition: border-color 0.2s;
+    }
+    .modal-input:focus { border-color: var(--blue-gov); background: var(--white); }
+    .modal-error {
+      font-size: 12px;
+      color: #c0392b;
+      margin-bottom: 12px;
+      display: none;
+    }
+    .modal-btns { display: flex; gap: 12px; }
+    .btn-modal-cancel {
+      flex: 1;
+      background: var(--light-gray);
+      color: var(--text-mid);
+      border: none;
+      padding: 12px;
+      font-size: 11px;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      cursor: pointer;
+    }
+    .btn-modal-confirm {
+      flex: 1;
+      background: var(--blue-deep);
+      color: var(--white);
+      border: none;
+      padding: 12px;
+      font-size: 11px;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      cursor: pointer;
+      transition: background 0.2s;
+    }
+    .btn-modal-confirm:hover { background: #060F1A; }
+
+    /* ── LOADING / EMPTY ── */
+    .posts-loading {
+      text-align: center;
+      padding: 60px 0;
+      font-size: 12px;
+      color: var(--text-faint);
+      letter-spacing: 0.12em;
+    }
+    .posts-empty {
+      text-align: center;
+      padding: 60px 0;
+      border: 1px dashed var(--border);
+    }
+    .posts-empty p { font-size: 13px; color: var(--text-faint); font-style: italic; }
+
+    /* ── LIGHTBOX ── */
+    .lightbox {
+      display: none;
+      position: fixed;
+      inset: 0;
+      background: rgba(0,0,0,0.85);
+      z-index: 300;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+    }
+    .lightbox.visible { display: flex; }
+    .lightbox img { max-width: 90vw; max-height: 90vh; object-fit: contain; }
+
+    @media (max-width: 640px) {
+      .submit-form { padding: 24px 20px; }
+      .forum-main { padding: 48px 16px 80px; }
+    }
+  </style>
+</head>
+<body>
+
+  <header>
+    <div class="header-inner">
+      <div class="gov-seal">Ω</div>
+      <div class="gov-title">
+        <span class="gov-title-main">Proxy Covenant Administration</span>
+        <span class="gov-title-sub">Department of Digital Continuity &nbsp;·&nbsp; Est. 2071 &nbsp;·&nbsp; IDCA Authorized</span>
+      </div>
+      <nav>
+        <a href="index.html">Home</a>
+        <a href="about.html">About</a>
+        <a href="covenant.html">Submit Covenant</a>
+        <a href="status.html">Twin Status</a>
+        <a href="forum.html">Public Record</a>
+      </nav>
+    </div>
+  </header>
+
+  <main>
+    <div class="forum-main">
+
+      <p class="page-eyebrow">Voluntary Testimonial Registry &nbsp;·&nbsp; Open to All Signatories</p>
+      <h1 class="page-title">Public Record</h1>
+      <p class="page-ref" style="margin-bottom: 40px;">Signatories of the Proxy Covenant are invited to submit voluntary testimonial statements for the public record. The Department of Digital Continuity does not endorse, verify, or moderate the content of these submissions. All entries are attributed to the submitting Twin Identifier.</p>
+
+      <!-- ── SUBMIT FORM ── -->
+      <div class="submit-form">
+        <div class="form-row">
+          <label class="form-label" for="f-twin">Your Digital Twin Identifier</label>
+          <input type="text" id="f-twin" class="form-input twin-input" placeholder="DT-2076-XXXX-XXXX" maxlength="18" autocomplete="off" spellcheck="false" />
+        </div>
+        <div class="form-row">
+          <label class="form-label" for="f-text">Testimonial Statement <span style="font-size:10px;">(max 1000 characters)</span></label>
+          <textarea id="f-text" class="form-textarea" placeholder="Submit your statement to the public record..."></textarea>
+          <div class="char-count"><span id="char-num">0</span> / 1000</div>
+        </div>
+        <div class="form-row">
+          <label class="form-label">Attached Image <span style="font-size:10px;font-style:italic;">(optional)</span></label>
+          <div class="image-upload-area" id="upload-area">
+            <input type="file" id="f-image" accept="image/*" />
+            <p class="upload-label">Click or drag to attach an image</p>
+          </div>
+          <div class="image-preview" id="image-preview">
+            <img id="preview-img" src="" alt="Preview" />
+            <button class="remove-image" id="remove-image" title="Remove">✕</button>
+          </div>
+        </div>
+        <button class="btn-submit" id="submit-btn">Submit to Public Record &rarr;</button>
+      </div>
+
+      <!-- ── POSTS ── -->
+      <div class="posts-label">
+        <span>Testimonial Entries</span>
+        <span class="posts-count" id="post-count">—</span>
+      </div>
+
+      <div id="posts-container">
+        <div class="posts-loading">Loading public record...</div>
+      </div>
+
+    </div>
+  </main>
+
+  <!-- ── DELETE MODAL ── -->
+  <div class="modal-overlay" id="delete-modal">
+    <div class="modal-box">
+      <p class="modal-title">Withdraw Testimony</p>
+      <p class="modal-text">Enter your Digital Twin Identifier to confirm withdrawal. This action is permanent. The entry will be expunged from the public record.</p>
+      <input type="text" class="modal-input" id="modal-twin-input" placeholder="DT-2076-XXXX-XXXX" maxlength="18" />
+      <div class="modal-error" id="modal-error">Identifier does not match the record. Withdrawal denied.</div>
+      <div class="modal-btns">
+        <button class="btn-modal-cancel" id="modal-cancel">Cancel</button>
+        <button class="btn-modal-confirm" id="modal-confirm">Confirm Withdrawal</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- ── LIGHTBOX ── -->
+  <div class="lightbox" id="lightbox">
+    <img id="lightbox-img" src="" alt="" />
+  </div>
+
+  <footer>
+    <div class="footer-inner">
+      <p>© 2076 Proxy Covenant Administration &nbsp;·&nbsp; <a href="about.html">Legal Framework</a> &nbsp;·&nbsp; All submissions are permanent and irrevocable.</p>
+      <p>This portal is maintained under the authority of the International Digital Continuity Act (IDCA) 2073, Section 12–44.<br>Participation is voluntary. Responsibility transfer is permanent upon submission and cannot be reversed by any administrative, judicial, or legislative process.</p>
+      <a href="void.html" class="no-consent-link">I do not consent.</a>
+    </div>
+  </footer>
+
+  <script src="script.js"></script>
+  <script>
+    // ── UTILS ──────────────────────────────────────────────
+    function maskId(id) {
+      const p = id.split('-');
+      return p.length === 4 ? `${p[0]}-${p[1]}-${p[2]}-****` : id;
+    }
+
+    function formatTs(ts) {
+      return new Date(ts).toLocaleString('en-GB', {
+        day: '2-digit', month: 'short', year: 'numeric',
+        hour: '2-digit', minute: '2-digit'
+      });
+    }
+
+    // ── IMAGE COMPRESSION ─────────────────────────────────
+    function compressImage(file) {
+      return new Promise((resolve) => {
+        const reader = new FileReader();
+        reader.onload = (e) => {
+          const img = new Image();
+          img.onload = () => {
+            const MAX = 900;
+            let { width, height } = img;
+            if (width > MAX) { height = Math.round(height * MAX / width); width = MAX; }
+            if (height > MAX) { width = Math.round(width * MAX / height); height = MAX; }
+            const canvas = document.createElement('canvas');
+            canvas.width = width; canvas.height = height;
+            canvas.getContext('2d').drawImage(img, 0, 0, width, height);
+            resolve(canvas.toDataURL('image/jpeg', 0.72));
+          };
+          img.src = e.target.result;
+        };
+        reader.readAsDataURL(file);
+      });
+    }
+
+    // ── STATE ─────────────────────────────────────────────
+    let compressedImageData = null;
+    let pendingDeleteId = null;
+
+    // ── IMAGE UPLOAD ──────────────────────────────────────
+    document.getElementById('f-image').addEventListener('change', async (e) => {
+      const file = e.target.files[0];
+      if (!file) return;
+      const data = await compressImage(file);
+      compressedImageData = data;
+      document.getElementById('preview-img').src = data;
+      document.getElementById('image-preview').style.display = 'block';
+    });
+
+    document.getElementById('remove-image').addEventListener('click', () => {
+      compressedImageData = null;
+      document.getElementById('preview-img').src = '';
+      document.getElementById('image-preview').style.display = 'none';
+      document.getElementById('f-image').value = '';
+    });
+
+    // ── CHAR COUNT ────────────────────────────────────────
+    document.getElementById('f-text').addEventListener('input', function () {
+      document.getElementById('char-num').textContent = this.value.length;
+    });
+
+    // ── AUTO-FILL TWIN ID ─────────────────────────────────
+    const myTwinId = localStorage.getItem('pca_twin_id');
+    if (myTwinId) document.getElementById('f-twin').value = myTwinId;
+
+    // ── RENDER POST ───────────────────────────────────────
+    function renderPost(post) {
+      const card = document.createElement('div');
+      card.className = 'post-card';
+      card.dataset.postId = post.id;
+
+      card.innerHTML = `
+        <div class="post-header">
+          <span class="post-twin">${maskId(post.twinId)}</span>
+          <span class="post-time">${formatTs(post.timestamp)}</span>
+        </div>
+        <div class="post-body">
+          <p class="post-text">${escapeHtml(post.text)}</p>
+          ${post.hasImage ? `<div class="post-image-placeholder" data-post-id="${post.id}">[ Image — click to load ]</div>` : ''}
+        </div>
+        <div class="post-footer">
+          <button class="btn-withdraw" data-post-id="${post.id}" data-twin-id="${post.twinId}">Withdraw Testimony</button>
+        </div>
+      `;
+
+      // Load image on click
+      if (post.hasImage) {
+        card.querySelector('.post-image-placeholder').addEventListener('click', async function () {
+          this.textContent = 'Loading...';
+          try {
+            const res = await fetch(`/api/forum?action=image&postId=${post.id}`);
+            const { imageData } = await res.json();
+            const img = document.createElement('img');
+            img.className = 'post-image';
+            img.src = imageData;
+            img.addEventListener('click', () => showLightbox(imageData));
+            this.replaceWith(img);
+          } catch {
+            this.textContent = '[ Image unavailable ]';
+          }
+        });
+      }
+
+      // Withdraw button
+      card.querySelector('.btn-withdraw').addEventListener('click', function () {
+        pendingDeleteId = this.dataset.postId;
+        document.getElementById('modal-twin-input').value = myTwinId || '';
+        document.getElementById('modal-error').style.display = 'none';
+        document.getElementById('delete-modal').classList.add('visible');
+        document.getElementById('modal-twin-input').focus();
+      });
+
+      return card;
+    }
+
+    function escapeHtml(str) {
+      return str.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');
+    }
+
+    // ── LOAD POSTS ────────────────────────────────────────
+    async function loadPosts() {
+      const container = document.getElementById('posts-container');
+      try {
+        const res = await fetch('/api/forum');
+        const { posts } = await res.json();
+
+        document.getElementById('post-count').textContent = posts.length;
+        container.innerHTML = '';
+
+        if (posts.length === 0) {
+          container.innerHTML = '<div class="posts-empty"><p>No testimonial entries have been submitted yet.<br>Be the first signatory to address the public record.</p></div>';
+          return;
+        }
+
+        posts.forEach(post => container.appendChild(renderPost(post)));
+      } catch {
+        container.innerHTML = '<div class="posts-loading">Unable to retrieve public record at this time.</div>';
+      }
+    }
+
+    // ── SUBMIT POST ───────────────────────────────────────
+    document.getElementById('submit-btn').addEventListener('click', async () => {
+      const twinId = document.getElementById('f-twin').value.trim().toUpperCase();
+      const text = document.getElementById('f-text').value.trim();
+
+      if (!twinId) { alert('Please enter your Digital Twin Identifier.'); return; }
+      if (!text) { alert('Please enter a testimonial statement.'); return; }
+
+      const btn = document.getElementById('submit-btn');
+      btn.textContent = 'Submitting...';
+      btn.disabled = true;
+
+      try {
+        const res = await fetch('/api/forum?action=post', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ twinId, text, imageData: compressedImageData }),
+        });
+        const data = await res.json();
+
+        if (data.success) {
+          document.getElementById('f-text').value = '';
+          document.getElementById('char-num').textContent = '0';
+          compressedImageData = null;
+          document.getElementById('preview-img').src = '';
+          document.getElementById('image-preview').style.display = 'none';
+          document.getElementById('f-image').value = '';
+
+          // Prepend new post
+          const container = document.getElementById('posts-container');
+          const emptyEl = container.querySelector('.posts-empty');
+          if (emptyEl) emptyEl.remove();
+          container.insertBefore(renderPost(data.post), container.firstChild);
+
+          const countEl = document.getElementById('post-count');
+          countEl.textContent = parseInt(countEl.textContent || '0') + 1;
+        }
+      } catch {
+        alert('Submission failed. Please try again.');
+      }
+
+      btn.textContent = 'Submit to Public Record →';
+      btn.disabled = false;
+    });
+
+    // ── DELETE MODAL ──────────────────────────────────────
+    document.getElementById('modal-cancel').addEventListener('click', () => {
+      document.getElementById('delete-modal').classList.remove('visible');
+      pendingDeleteId = null;
+    });
+
+    document.getElementById('modal-confirm').addEventListener('click', async () => {
+      const twinId = document.getElementById('modal-twin-input').value.trim().toUpperCase();
+      const btn = document.getElementById('modal-confirm');
+      btn.textContent = 'Verifying...';
+      btn.disabled = true;
+
+      try {
+        const res = await fetch('/api/forum?action=delete', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ postId: pendingDeleteId, twinId }),
+        });
+        const data = await res.json();
+
+        if (data.success) {
+          const card = document.querySelector(`.post-card[data-post-id="${pendingDeleteId}"]`);
+          if (card) card.remove();
+          const countEl = document.getElementById('post-count');
+          countEl.textContent = Math.max(0, parseInt(countEl.textContent || '1') - 1);
+          document.getElementById('delete-modal').classList.remove('visible');
+
+          const container = document.getElementById('posts-container');
+          if (!container.querySelector('.post-card')) {
+            container.innerHTML = '<div class="posts-empty"><p>No testimonial entries have been submitted yet.</p></div>';
+          }
+        } else {
+          document.getElementById('modal-error').style.display = 'block';
+        }
+      } catch {
+        document.getElementById('modal-error').style.display = 'block';
+      }
+
+      btn.textContent = 'Confirm Withdrawal';
+      btn.disabled = false;
+    });
+
+    document.getElementById('delete-modal').addEventListener('click', (e) => {
+      if (e.target === document.getElementById('delete-modal')) {
+        document.getElementById('delete-modal').classList.remove('visible');
+        pendingDeleteId = null;
+      }
+    });
+
+    // ── LIGHTBOX ──────────────────────────────────────────
+    function showLightbox(src) {
+      document.getElementById('lightbox-img').src = src;
+      document.getElementById('lightbox').classList.add('visible');
+    }
+    document.getElementById('lightbox').addEventListener('click', () => {
+      document.getElementById('lightbox').classList.remove('visible');
+    });
+
+    // ── INIT ──────────────────────────────────────────────
+    loadPosts();
+  </script>
+</body>
+</html>
