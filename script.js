@@ -12,14 +12,11 @@ function getTwinId() {
 }
 
 // ── COUNTER ──────────────────────────────────────────────
-const COUNTER_NAMESPACE = 'byproxy-pca';
-const COUNTER_KEY = 'covenants';
-
 async function getCount() {
   try {
-    const res = await fetch(`https://api.counterapi.dev/v1/${COUNTER_NAMESPACE}/${COUNTER_KEY}`);
+    const res = await fetch('/.netlify/functions/counter');
     const data = await res.json();
-    return data.value || 0;
+    return data.count || 0;
   } catch {
     return parseInt(localStorage.getItem('pca_local_count') || '0');
   }
@@ -27,9 +24,9 @@ async function getCount() {
 
 async function incrementCount() {
   try {
-    const res = await fetch(`https://api.counterapi.dev/v1/${COUNTER_NAMESPACE}/${COUNTER_KEY}/up`);
+    const res = await fetch('/.netlify/functions/counter?action=increment');
     const data = await res.json();
-    return data.value || 0;
+    return data.count || 0;
   } catch {
     const local = parseInt(localStorage.getItem('pca_local_count') || '0') + 1;
     localStorage.setItem('pca_local_count', String(local));
