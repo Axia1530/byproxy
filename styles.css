@@ -602,15 +602,15 @@ footer {
   position: absolute !important;
   bottom: -4px;
   right: 0;
-  font-size: 8.5px !important;
-  color: var(--off-white) !important;
+  font-size: 9px !important;
+  color: var(--border) !important;
   letter-spacing: 0.01em;
-  opacity: 0.2;
-  transition: opacity 0.5s, color 0.5s;
+  opacity: 0.5;
+  transition: opacity 0.4s, color 0.4s;
 }
 .no-consent-link:hover {
-  opacity: 0.6;
-  color: var(--text-faint) !important;
+  opacity: 1;
+  color: var(--text-light) !important;
   text-decoration: none !important;
 }
 
