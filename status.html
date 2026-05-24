@@ -1,0 +1,282 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Twin Status Inquiry — PCA Official Portal</title>
+  <link rel="stylesheet" href="styles.css" />
+  <style>
+    .status-main {
+      max-width: 600px;
+      margin: 0 auto;
+      padding: 80px 32px 100px;
+    }
+    .inquiry-box {
+      background: var(--white);
+      border: 1px solid var(--border);
+      padding: 48px;
+      margin-top: 40px;
+    }
+    .inquiry-label {
+      font-size: 11px;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: var(--text-faint);
+      margin-bottom: 8px;
+    }
+    .inquiry-input {
+      width: 100%;
+      border: 1px solid var(--border);
+      background: var(--off-white);
+      padding: 12px 16px;
+      font-family: 'Cinzel', serif;
+      font-size: 15px;
+      letter-spacing: 0.08em;
+      color: var(--text-dark);
+      outline: none;
+      margin-bottom: 20px;
+      transition: border-color 0.2s;
+    }
+    .inquiry-input:focus { border-color: var(--blue-gov); background: var(--white); }
+    .inquiry-input::placeholder { color: var(--text-faint); font-size: 13px; letter-spacing: 0.04em; }
+    .btn-inquiry {
+      width: 100%;
+      background: var(--blue-gov);
+      color: var(--white);
+      padding: 14px;
+      font-family: 'Source Sans 3', sans-serif;
+      font-size: 11px;
+      font-weight: 600;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      border: none;
+      cursor: pointer;
+      transition: background 0.2s;
+    }
+    .btn-inquiry:hover { background: var(--blue-deep); }
+
+    .result-box {
+      display: none;
+      margin-top: 32px;
+      border: 1px solid var(--border);
+    }
+    .result-box.visible { display: block; }
+
+    .result-header {
+      background: var(--blue-deep);
+      color: var(--white);
+      padding: 12px 20px;
+      font-family: 'Cinzel', serif;
+      font-size: 10px;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+    }
+    .result-body { padding: 28px; }
+    .result-row {
+      display: flex;
+      justify-content: space-between;
+      align-items: baseline;
+      padding: 10px 0;
+      border-bottom: 1px solid var(--light-gray);
+      gap: 16px;
+    }
+    .result-row:last-child { border-bottom: none; }
+    .result-key {
+      font-size: 10px;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: var(--text-faint);
+      flex-shrink: 0;
+    }
+    .result-val {
+      font-family: 'Cinzel', serif;
+      font-size: 14px;
+      color: var(--blue-deep);
+      text-align: right;
+      letter-spacing: 0.04em;
+    }
+    .result-val.timer {
+      font-size: 18px;
+      font-weight: 600;
+      font-variant-numeric: tabular-nums;
+    }
+
+    .not-found-box {
+      display: none;
+      margin-top: 32px;
+      background: var(--blue-faint);
+      border: 1px solid var(--border);
+      padding: 28px;
+    }
+    .not-found-box.visible { display: block; }
+    .not-found-title {
+      font-family: 'Cinzel', serif;
+      font-size: 11px;
+      letter-spacing: 0.16em;
+      text-transform: uppercase;
+      color: var(--blue-gov);
+      margin-bottom: 12px;
+    }
+    .not-found-text {
+      font-size: 13px;
+      color: var(--text-light);
+      line-height: 1.8;
+      font-weight: 300;
+    }
+  </style>
+</head>
+<body>
+
+  <header>
+    <div class="header-inner">
+      <div class="gov-seal">Ω</div>
+      <div class="gov-title">
+        <span class="gov-title-main">Proxy Covenant Administration</span>
+        <span class="gov-title-sub">Department of Digital Continuity &nbsp;·&nbsp; Est. 2071 &nbsp;·&nbsp; IDCA Authorized</span>
+      </div>
+      <nav>
+        <a href="index.html">Home</a>
+        <a href="about.html">About</a>
+        <a href="covenant.html">Submit Covenant</a>
+        <a href="status.html">Twin Status</a>
+      </nav>
+    </div>
+  </header>
+
+  <main>
+    <div class="status-main">
+
+      <p class="page-eyebrow">Citizen Inquiry Portal &nbsp;·&nbsp; Form PCA-INQ-001</p>
+      <h1 class="page-title">Digital Twin Status Inquiry</h1>
+      <p class="page-ref">Enter your Digital Twin Identifier to retrieve current operational status and runtime data. Inquiries are logged in accordance with IDCA 2073, Section 31.</p>
+
+      <div class="inquiry-box">
+        <p class="inquiry-label">Digital Twin Identifier</p>
+        <input
+          type="text"
+          class="inquiry-input"
+          id="twin-input"
+          placeholder="DT-2076-XXXX-XXXX"
+          maxlength="18"
+          autocomplete="off"
+          spellcheck="false"
+        />
+        <button class="btn-inquiry" id="inquiry-btn">Submit Inquiry &rarr;</button>
+
+        <div class="result-box" id="result-box">
+          <div class="result-header">Inquiry Result &nbsp;·&nbsp; Active Record Found</div>
+          <div class="result-body">
+            <div class="result-row">
+              <span class="result-key">Twin Identifier</span>
+              <span class="result-val" id="res-id">—</span>
+            </div>
+            <div class="result-row">
+              <span class="result-key">Status</span>
+              <span class="result-val">Operational</span>
+            </div>
+            <div class="result-row">
+              <span class="result-key">Activation Date</span>
+              <span class="result-val" id="res-date">—</span>
+            </div>
+            <div class="result-row">
+              <span class="result-key">Operational Duration</span>
+              <span class="result-val timer" id="res-timer">—</span>
+            </div>
+            <div class="result-row">
+              <span class="result-key">Inquiry Timestamp</span>
+              <span class="result-val" id="res-now">—</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="not-found-box" id="not-found-box">
+          <p class="not-found-title">Identifier Not Recognised</p>
+          <p class="not-found-text">No active Covenant record was found for the identifier provided. Please verify the identifier and resubmit. If you believe this is an error, you may contact the Department of Digital Continuity. Repeated unsuccessful inquiries are subject to review.</p>
+        </div>
+
+      </div>
+
+    </div>
+  </main>
+
+  <footer>
+    <div class="footer-inner">
+      <p>© 2076 Proxy Covenant Administration &nbsp;·&nbsp; <a href="about.html">Legal Framework</a> &nbsp;·&nbsp; All submissions are permanent and irrevocable.</p>
+      <p>This portal is maintained under the authority of the International Digital Continuity Act (IDCA) 2073, Section 12–44.<br>Participation is voluntary. Responsibility transfer is permanent upon submission and cannot be reversed by any administrative, judicial, or legislative process.</p>
+      <a href="void.html" class="no-consent-link">I do not consent.</a>
+    </div>
+  </footer>
+
+  <script src="script.js"></script>
+  <script>
+    function padZ(n) { return String(n).padStart(2, '0'); }
+
+    function formatDuration(ms) {
+      const s = Math.floor(ms / 1000);
+      const d = Math.floor(s / 86400);
+      const h = Math.floor((s % 86400) / 3600);
+      const m = Math.floor((s % 3600) / 60);
+      const sec = s % 60;
+      if (d > 0) return `${d}d ${padZ(h)}:${padZ(m)}:${padZ(sec)}`;
+      return `${padZ(h)}:${padZ(m)}:${padZ(sec)}`;
+    }
+
+    function formatDate(ts) {
+      const d = new Date(ts);
+      return d.toLocaleString('en-GB', { day: '2-digit', month: 'long', year: 'numeric', hour: '2-digit', minute: '2-digit' });
+    }
+
+    let timerInterval = null;
+
+    document.getElementById('inquiry-btn').addEventListener('click', async () => {
+      const id = document.getElementById('twin-input').value.trim().toUpperCase();
+      if (!id) return;
+
+      const btn = document.getElementById('inquiry-btn');
+      btn.textContent = 'Querying...';
+      btn.disabled = true;
+
+      document.getElementById('result-box').classList.remove('visible');
+      document.getElementById('not-found-box').classList.remove('visible');
+      if (timerInterval) clearInterval(timerInterval);
+
+      try {
+        const res = await fetch(`/api/twin?action=lookup&id=${encodeURIComponent(id)}`);
+        const data = await res.json();
+
+        if (data.found) {
+          const ts = data.timestamp;
+          document.getElementById('res-id').textContent = id;
+          document.getElementById('res-date').textContent = formatDate(ts);
+          document.getElementById('res-now').textContent = formatDate(Date.now());
+
+          function tick() {
+            document.getElementById('res-timer').textContent = formatDuration(Date.now() - ts);
+          }
+          tick();
+          timerInterval = setInterval(tick, 1000);
+          document.getElementById('result-box').classList.add('visible');
+        } else {
+          document.getElementById('not-found-box').classList.add('visible');
+        }
+      } catch {
+        document.getElementById('not-found-box').classList.add('visible');
+      }
+
+      btn.textContent = 'Submit Inquiry →';
+      btn.disabled = false;
+    });
+
+    // Allow pressing Enter to submit
+    document.getElementById('twin-input').addEventListener('keydown', (e) => {
+      if (e.key === 'Enter') document.getElementById('inquiry-btn').click();
+    });
+
+    // Auto-fill if user has a twin ID
+    const myId = localStorage.getItem('pca_twin_id');
+    if (myId && !document.getElementById('twin-input').value) {
+      document.getElementById('twin-input').value = myId;
+    }
+  </script>
+</body>
+</html>

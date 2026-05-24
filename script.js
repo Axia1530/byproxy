@@ -130,6 +130,14 @@ document.addEventListener('DOMContentLoaded', async () => {
         localStorage.setItem('pca_activation_ts', String(activationTs));
         localStorage.setItem('pca_signatory_name', name);
 
+        // Register twin in Upstash for cross-device lookup
+        const twinId = getTwinId();
+        await fetch('/api/twin?action=register', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ twinId, timestamp: activationTs }),
+        }).catch(() => {});
+
         await incrementCount();
 
         window.location.href = 'activated.html';
