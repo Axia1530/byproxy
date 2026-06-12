@@ -51,27 +51,11 @@ header {
   gap: 18px;
   height: 64px;
 }
-.gov-seal {
-  width: 40px; height: 40px;
-  border: 2px solid var(--blue-gov);
-  border-radius: 50%;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  font-size: 16px;
-  color: var(--blue-gov);
+.gov-logo {
+  height: 38px;
+  width: auto;
   flex-shrink: 0;
-  position: relative;
-  font-family: 'Cinzel', serif;
-  font-weight: 600;
-}
-.gov-seal::after {
-  content: '';
-  position: absolute;
-  width: 33px; height: 33px;
-  border: 1px solid var(--blue-gov);
-  border-radius: 50%;
-  opacity: 0.35;
+  display: block;
 }
 .gov-title { display: flex; flex-direction: column; flex: 1; }
 .gov-title-main {

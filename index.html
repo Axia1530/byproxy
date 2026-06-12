@@ -32,15 +32,14 @@
     }
     .gov-title-main { color: #ffffff; transition: color 0.4s; }
     .gov-title-sub { color: rgba(255,255,255,0.5); transition: color 0.4s; }
-    .gov-seal { border-color: rgba(255,255,255,0.6); color: rgba(255,255,255,0.8); transition: all 0.4s; }
-    .gov-seal::after { border-color: rgba(255,255,255,0.3); }
+    /* Invert white-bg logo to display cleanly on the dark slideshow */
+    .gov-logo { filter: brightness(0) invert(1); transition: filter 0.4s; }
     nav a { color: rgba(255,255,255,0.85); transition: color 0.3s, border-color 0.3s; }
     nav a:hover, nav a.active { color: #ffffff; border-bottom-color: #ffffff; }
 
     header.scrolled .gov-title-main { color: var(--blue-deep); }
     header.scrolled .gov-title-sub { color: var(--text-faint); }
-    header.scrolled .gov-seal { border-color: var(--blue-gov); color: var(--blue-gov); }
-    header.scrolled .gov-seal::after { border-color: var(--blue-gov); opacity: 0.35; }
+    header.scrolled .gov-logo { filter: none; }
     header.scrolled nav a { color: var(--text-mid); }
     header.scrolled nav a:hover, header.scrolled nav a.active { color: var(--blue-gov); border-bottom-color: var(--blue-gov); }
 
@@ -236,7 +235,7 @@
   <!-- ── HEADER ── -->
   <header id="main-header">
     <div class="header-inner">
-      <div class="gov-seal">Ω</div>
+      <img src="proxislogo.png" class="gov-logo" alt="Proxis" />
       <div class="gov-title">
         <span class="gov-title-main">Proxis</span>
         <span class="gov-title-sub">WORK LESS, BE MORE.</span>
