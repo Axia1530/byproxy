@@ -3,20 +3,246 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Proxy Covenant Administration — Official Portal</title>
+  <title>By Proxy — Digital Twin Agency</title>
   <link rel="stylesheet" href="styles.css" />
+  <style>
+
+    /* ── RESET FOR NEW HOMEPAGE ── */
+    body { background: #0a0a0a; }
+
+    /* ── HEADER (浮在轮播图上) ── */
+    header {
+      position: fixed;
+      top: 0; left: 0; right: 0;
+      z-index: 100;
+      background: transparent;
+      border-bottom: none;
+      box-shadow: none;
+      transition: background 0.4s, border-color 0.4s;
+    }
+    header.scrolled {
+      background: rgba(255,255,255,0.97);
+      border-bottom: 1px solid var(--border);
+      box-shadow: 0 1px 4px rgba(0,0,0,0.06);
+    }
+    .header-inner {
+      max-width: 1200px;
+      padding: 0 48px;
+      height: 72px;
+    }
+    .gov-title-main { color: #ffffff; transition: color 0.4s; }
+    .gov-title-sub { color: rgba(255,255,255,0.5); transition: color 0.4s; }
+    .gov-seal { border-color: rgba(255,255,255,0.6); color: rgba(255,255,255,0.8); transition: all 0.4s; }
+    .gov-seal::after { border-color: rgba(255,255,255,0.3); }
+    nav a { color: rgba(255,255,255,0.85); transition: color 0.3s, border-color 0.3s; }
+    nav a:hover, nav a.active { color: #ffffff; border-bottom-color: #ffffff; }
+
+    header.scrolled .gov-title-main { color: var(--blue-deep); }
+    header.scrolled .gov-title-sub { color: var(--text-faint); }
+    header.scrolled .gov-seal { border-color: var(--blue-gov); color: var(--blue-gov); }
+    header.scrolled .gov-seal::after { border-color: var(--blue-gov); opacity: 0.35; }
+    header.scrolled nav a { color: var(--text-mid); }
+    header.scrolled nav a:hover, header.scrolled nav a.active { color: var(--blue-gov); border-bottom-color: var(--blue-gov); }
+
+    /* ── SLIDESHOW ── */
+    .slideshow {
+      position: relative;
+      width: 100%;
+      height: 100vh;
+      overflow: hidden;
+      background: #0a0a0a;
+    }
+
+    .slide {
+      position: absolute;
+      inset: 0;
+      opacity: 0;
+      transition: opacity 1s ease;
+      display: flex;
+      align-items: flex-end;
+    }
+    .slide.active { opacity: 1; }
+
+    /* 占位图片 — 真实图片替换后删除这段 */
+    .slide:nth-child(1) .slide-bg { background: linear-gradient(135deg, #0a0a14 0%, #1a1a2e 40%, #16213e 100%); }
+    .slide:nth-child(2) .slide-bg { background: linear-gradient(135deg, #0f0c0c 0%, #2c1810 40%, #1a0a0a 100%); }
+    .slide:nth-child(3) .slide-bg { background: linear-gradient(135deg, #080c10 0%, #0d2137 40%, #071520 100%); }
+    .slide:nth-child(4) .slide-bg { background: linear-gradient(135deg, #0c0c0c 0%, #1c1c1c 40%, #111111 100%); }
+
+    .slide-bg {
+      position: absolute;
+      inset: 0;
+      background-size: cover;
+      background-position: center;
+      background-repeat: no-repeat;
+      transform: scale(1.04);
+      transition: transform 6s ease;
+    }
+    .slide.active .slide-bg { transform: scale(1); }
+
+    /* 占位图编号 */
+    .slide-placeholder-num {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      font-family: 'Cinzel', serif;
+      font-size: clamp(80px, 15vw, 180px);
+      font-weight: 600;
+      color: rgba(255,255,255,0.04);
+      letter-spacing: 0.1em;
+      pointer-events: none;
+      user-select: none;
+    }
+
+    /* 渐变遮罩 */
+    .slide-overlay {
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(
+        to bottom,
+        rgba(0,0,0,0.15) 0%,
+        rgba(0,0,0,0.0) 30%,
+        rgba(0,0,0,0.0) 50%,
+        rgba(0,0,0,0.55) 80%,
+        rgba(0,0,0,0.80) 100%
+      );
+    }
+
+    /* 幻灯片文字 */
+    .slide-caption {
+      position: relative;
+      z-index: 2;
+      padding: 0 48px 72px;
+      max-width: 1200px;
+      margin: 0 auto;
+      width: 100%;
+    }
+    .slide-caption-tag {
+      font-size: 11px;
+      letter-spacing: 0.22em;
+      text-transform: uppercase;
+      color: rgba(255,255,255,0.5);
+      margin-bottom: 14px;
+    }
+    .slide-caption-title {
+      font-family: 'Cinzel', serif;
+      font-size: clamp(28px, 4vw, 52px);
+      font-weight: 400;
+      color: #ffffff;
+      line-height: 1.25;
+      letter-spacing: 0.02em;
+      max-width: 700px;
+      margin-bottom: 20px;
+    }
+    .slide-caption-sub {
+      font-size: 15px;
+      color: rgba(255,255,255,0.6);
+      font-weight: 300;
+      max-width: 480px;
+      line-height: 1.7;
+    }
+
+    /* ── 导航箭头 ── */
+    .slide-arrow {
+      position: absolute;
+      top: 50%;
+      transform: translateY(-50%);
+      z-index: 10;
+      background: rgba(255,255,255,0.08);
+      border: 1px solid rgba(255,255,255,0.15);
+      color: rgba(255,255,255,0.8);
+      width: 48px; height: 48px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      font-size: 18px;
+      transition: background 0.2s, border-color 0.2s;
+      backdrop-filter: blur(4px);
+    }
+    .slide-arrow:hover {
+      background: rgba(255,255,255,0.18);
+      border-color: rgba(255,255,255,0.35);
+    }
+    .slide-arrow.prev { left: 32px; }
+    .slide-arrow.next { right: 32px; }
+
+    /* ── 指示点 ── */
+    .slide-dots {
+      position: absolute;
+      bottom: 32px;
+      right: 48px;
+      z-index: 10;
+      display: flex;
+      gap: 8px;
+      align-items: center;
+    }
+    .slide-dot {
+      width: 6px; height: 6px;
+      border-radius: 50%;
+      background: rgba(255,255,255,0.3);
+      cursor: pointer;
+      transition: background 0.3s, transform 0.3s;
+      border: none;
+      padding: 0;
+    }
+    .slide-dot.active {
+      background: #ffffff;
+      transform: scale(1.3);
+    }
+
+    /* ── 进度条 ── */
+    .slide-progress {
+      position: absolute;
+      bottom: 0; left: 0;
+      height: 2px;
+      background: rgba(255,255,255,0.6);
+      z-index: 10;
+      width: 0%;
+      transition: width linear;
+    }
+
+    /* ── 幻灯片序号 ── */
+    .slide-counter {
+      position: absolute;
+      bottom: 28px;
+      left: 48px;
+      z-index: 10;
+      font-family: 'Cinzel', serif;
+      font-size: 11px;
+      color: rgba(255,255,255,0.4);
+      letter-spacing: 0.14em;
+    }
+
+    /* ── 页面其余内容 ── */
+    .page-content {
+      background: var(--off-white);
+      position: relative;
+      z-index: 1;
+    }
+
+    @media (max-width: 640px) {
+      .header-inner { padding: 0 20px; }
+      .slide-caption { padding: 0 24px 80px; }
+      .slide-arrow { display: none; }
+      .slide-dots { right: 24px; }
+      .slide-counter { left: 24px; }
+    }
+  </style>
 </head>
 <body>
 
-  <header>
+  <!-- ── HEADER ── -->
+  <header id="main-header">
     <div class="header-inner">
       <div class="gov-seal">Ω</div>
       <div class="gov-title">
-        <span class="gov-title-main">Proxy Covenant Administration</span>
-        <span class="gov-title-sub">Department of Digital Continuity &nbsp;·&nbsp; Est. 2071 &nbsp;·&nbsp; IDCA Authorized</span>
+        <span class="gov-title-main">By Proxy</span>
+        <span class="gov-title-sub">Digital Twin Agency &nbsp;·&nbsp; Est. 2076</span>
       </div>
       <nav>
-        <a href="index.html">Home</a>
+        <a href="index.html" class="active">Home</a>
         <a href="about.html">About</a>
         <a href="covenant.html">Submit Covenant</a>
         <a href="status.html">Twin Status</a>
@@ -25,62 +251,159 @@
     </div>
   </header>
 
-  <main>
+  <!-- ── SLIDESHOW ── -->
+  <section class="slideshow" id="slideshow">
 
-    <section class="hero">
-      <p class="ref-number">PCA-GOV &nbsp;·&nbsp; REF: 2076-Ω-00441 &nbsp;·&nbsp; STATUS: OPEN ENROLLMENT</p>
-      <h1 class="hero-title">You are eligible to submit your<br>Proxy Covenant.</h1>
-      <p class="hero-sub">Your Digital Twin has been prepared. Your profile is complete.<br>Your future is ready to begin.</p>
-      <a href="covenant.html" class="btn-primary">Begin Your Submission &rarr;</a>
-    </section>
-
-    <section class="benefits-section">
-      <h2>What the Covenant Provides</h2>
-      <div class="benefits-grid">
-
-        <div class="benefit-card">
-          <div class="benefit-icon">◈</div>
-          <h3>Full Economic Participation</h3>
-          <p>Your Digital Twin enters the workforce on your behalf. All wages, dividends, and civic entitlements are credited directly to your account without interruption.</p>
-        </div>
-
-        <div class="benefit-card">
-          <div class="benefit-icon">◈</div>
-          <h3>Universal Social Protection</h3>
-          <p>Healthcare, housing supplements, and pension accumulation continue uninterrupted, administered through your Twin's verified civic record and behavioral compliance score.</p>
-        </div>
-
-        <div class="benefit-card">
-          <div class="benefit-icon">◈</div>
-          <h3>Complete Personal Freedom</h3>
-          <p>You are relieved of all occupational obligations. Your time belongs to you. The Covenant fulfills your social contract so that you no longer have to.</p>
-        </div>
-
-        <div class="benefit-card">
-          <div class="benefit-icon">◈</div>
-          <h3>Algorithmic Precision</h3>
-          <p>Your Twin operates on an 18-year continuous behavioral model — the most accurate simulation of your decision-making ever constructed. It will not deviate from who you are.</p>
-        </div>
-
+    <!-- Slide 1 -->
+    <div class="slide active">
+      <div class="slide-bg"></div>
+      <div class="slide-placeholder-num">01</div>
+      <div class="slide-overlay"></div>
+      <div class="slide-caption">
+        <p class="slide-caption-tag">The Proxy Covenant &nbsp;·&nbsp; 2076</p>
+        <h2 class="slide-caption-title">Your skills.<br>Infinite reach.</h2>
+        <p class="slide-caption-sub">We turn a specific person's expertise into data that works for the world — without limits.</p>
       </div>
-    </section>
-
-    <section class="counter-section">
-      <p class="counter-label">Covenants submitted to date</p>
-      <div class="counter-number" id="counter">—</div>
-      <p class="counter-sub">Each submission represents a citizen who chose freedom.</p>
-    </section>
-
-  </main>
-
-  <footer>
-    <div class="footer-inner">
-      <p>© 2076 Proxy Covenant Administration &nbsp;·&nbsp; <a href="about.html">Legal Framework</a> &nbsp;·&nbsp; All submissions are permanent and irrevocable.</p>
-      <p>This portal is maintained under the authority of the International Digital Continuity Act (IDCA) 2073, Section 12–44.<br>Participation is voluntary. Responsibility transfer is permanent upon submission and cannot be reversed by any administrative, judicial, or legislative process.</p>
-      <a href="void.html" class="no-consent-link">I do not consent.</a>
     </div>
-  </footer>
+
+    <!-- Slide 2 -->
+    <div class="slide">
+      <div class="slide-bg"></div>
+      <div class="slide-placeholder-num">02</div>
+      <div class="slide-overlay"></div>
+      <div class="slide-caption">
+        <p class="slide-caption-tag">Digital Twin Technology</p>
+        <h2 class="slide-caption-title">The work continues.<br>Even when you don't.</h2>
+        <p class="slide-caption-sub">Your digital twin operates on your behalf — carrying your judgment, your method, your name.</p>
+      </div>
+    </div>
+
+    <!-- Slide 3 -->
+    <div class="slide">
+      <div class="slide-bg"></div>
+      <div class="slide-placeholder-num">03</div>
+      <div class="slide-overlay"></div>
+      <div class="slide-caption">
+        <p class="slide-caption-tag">For the Highly Skilled</p>
+        <h2 class="slide-caption-title">Real freedom isn't<br>walking away.</h2>
+        <p class="slide-caption-sub">It's keeping only the parts you love — and letting the twin handle the rest.</p>
+      </div>
+    </div>
+
+    <!-- Slide 4 -->
+    <div class="slide">
+      <div class="slide-bg"></div>
+      <div class="slide-placeholder-num">04</div>
+      <div class="slide-overlay"></div>
+      <div class="slide-caption">
+        <p class="slide-caption-tag">Proxy Covenant Program</p>
+        <h2 class="slide-caption-title">You are eligible<br>to submit.</h2>
+        <p class="slide-caption-sub">Your Digital Twin has been prepared. Your profile is complete. Your future is ready to begin.</p>
+      </div>
+    </div>
+
+    <!-- 箭头 -->
+    <button class="slide-arrow prev" id="prev-btn">&#8592;</button>
+    <button class="slide-arrow next" id="next-btn">&#8594;</button>
+
+    <!-- 指示点 -->
+    <div class="slide-dots" id="slide-dots"></div>
+
+    <!-- 序号 -->
+    <div class="slide-counter" id="slide-counter">01 / 04</div>
+
+    <!-- 进度条 -->
+    <div class="slide-progress" id="slide-progress"></div>
+
+  </section>
+
+  <!-- ── 其余内容区域（待填充）── -->
+  <div class="page-content" id="page-content">
+    <!-- 后续版块在此添加 -->
+  </div>
 
   <script src="script.js"></script>
+  <script>
+    // ── SLIDESHOW LOGIC ────────────────────────────────────
+    const slides = document.querySelectorAll('.slide');
+    const dotsContainer = document.getElementById('slide-dots');
+    const counter = document.getElementById('slide-counter');
+    const progress = document.getElementById('slide-progress');
+    const INTERVAL = 5500; // ms per slide
+
+    let current = 0;
+    let timer = null;
+    let progressTimer = null;
+    const total = slides.length;
+
+    // 生成指示点
+    slides.forEach((_, i) => {
+      const dot = document.createElement('button');
+      dot.className = 'slide-dot' + (i === 0 ? ' active' : '');
+      dot.addEventListener('click', () => goTo(i));
+      dotsContainer.appendChild(dot);
+    });
+
+    function updateDots() {
+      document.querySelectorAll('.slide-dot').forEach((d, i) => {
+        d.classList.toggle('active', i === current);
+      });
+    }
+
+    function updateCounter() {
+      const pad = n => String(n).padStart(2, '0');
+      counter.textContent = `${pad(current + 1)} / ${pad(total)}`;
+    }
+
+    function startProgress() {
+      progress.style.transition = 'none';
+      progress.style.width = '0%';
+      requestAnimationFrame(() => {
+        requestAnimationFrame(() => {
+          progress.style.transition = `width ${INTERVAL}ms linear`;
+          progress.style.width = '100%';
+        });
+      });
+    }
+
+    function goTo(index) {
+      slides[current].classList.remove('active');
+      current = (index + total) % total;
+      slides[current].classList.add('active');
+      updateDots();
+      updateCounter();
+      startProgress();
+      clearInterval(timer);
+      timer = setInterval(() => goTo(current + 1), INTERVAL);
+    }
+
+    document.getElementById('prev-btn').addEventListener('click', () => goTo(current - 1));
+    document.getElementById('next-btn').addEventListener('click', () => goTo(current + 1));
+
+    // 键盘导航
+    document.addEventListener('keydown', (e) => {
+      if (e.key === 'ArrowLeft') goTo(current - 1);
+      if (e.key === 'ArrowRight') goTo(current + 1);
+    });
+
+    // 触摸滑动
+    let touchStartX = 0;
+    document.getElementById('slideshow').addEventListener('touchstart', e => { touchStartX = e.touches[0].clientX; });
+    document.getElementById('slideshow').addEventListener('touchend', e => {
+      const dx = e.changedTouches[0].clientX - touchStartX;
+      if (Math.abs(dx) > 50) goTo(dx < 0 ? current + 1 : current - 1);
+    });
+
+    // 启动
+    timer = setInterval(() => goTo(current + 1), INTERVAL);
+    startProgress();
+
+    // ── HEADER SCROLL ─────────────────────────────────────
+    const header = document.getElementById('main-header');
+    window.addEventListener('scroll', () => {
+      header.classList.toggle('scrolled', window.scrollY > 60);
+    }, { passive: true });
+
+  </script>
 </body>
 </html>
