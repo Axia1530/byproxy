@@ -49,7 +49,7 @@ header {
   display: flex;
   align-items: center;
   gap: 8px;
-  height: 64px;
+  height: 96px;
 }
 .gov-logo {
   height: 88px;
