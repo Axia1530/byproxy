@@ -15,13 +15,17 @@
       position: fixed;
       top: 0; left: 0; right: 0;
       z-index: 100;
-      background: transparent;
-      border-bottom: none;
+      background: rgba(0, 0, 0, 0.28);
+      backdrop-filter: blur(14px);
+      -webkit-backdrop-filter: blur(14px);
+      border-bottom: 1px solid rgba(255,255,255,0.08);
       box-shadow: none;
-      transition: background 0.4s, border-color 0.4s;
+      transition: background 0.4s, border-color 0.4s, backdrop-filter 0.4s;
     }
     header.scrolled {
-      background: rgba(255,255,255,0.97);
+      background: rgba(255,255,255,0.95);
+      backdrop-filter: blur(14px);
+      -webkit-backdrop-filter: blur(14px);
       border-bottom: 1px solid var(--border);
       box-shadow: 0 1px 4px rgba(0,0,0,0.06);
     }
@@ -223,10 +227,14 @@
 
     @media (max-width: 640px) {
       .header-inner { padding: 0 20px; }
-      .slide-caption { padding: 0 24px 80px; }
+      .slide-caption { padding: 0 20px 90px; }
+      .slide-caption-title { font-size: clamp(24px, 7vw, 36px); }
+      .slide-caption-sub { font-size: 13px; }
       .slide-arrow { display: none; }
-      .slide-dots { right: 24px; }
-      .slide-counter { left: 24px; }
+      .slide-dots { right: 20px; }
+      .slide-counter { left: 20px; }
+      /* 手机端图片锚点居中偏上，避免裁掉主体 */
+      .slide-bg { background-position: center 30% !important; }
     }
   </style>
 </head>
