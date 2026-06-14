@@ -3,8 +3,91 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>About the Covenant — PCA Official Portal</title>
+  <title>How It Works — Proxis</title>
   <link rel="stylesheet" href="styles.css" />
+  <style>
+    .how-main {
+      max-width: 900px;
+      margin: 0 auto;
+      padding: 80px 32px 100px;
+    }
+    .phase-block {
+      display: grid;
+      grid-template-columns: 200px 1fr;
+      gap: 56px;
+      padding: 56px 0;
+      border-bottom: 1px solid var(--border);
+      align-items: start;
+    }
+    .phase-block:last-child { border-bottom: none; }
+    .phase-meta { position: sticky; top: 88px; }
+    .phase-num {
+      font-family: 'Exo 2', sans-serif;
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: 0.2em;
+      color: var(--blue-gov);
+      margin-bottom: 10px;
+    }
+    .phase-name {
+      font-family: 'Cinzel', serif;
+      font-size: 15px;
+      font-weight: 500;
+      color: var(--blue-deep);
+      letter-spacing: 0.04em;
+      line-height: 1.5;
+    }
+    .phase-content h3 {
+      font-family: 'Cinzel', serif;
+      font-size: 20px;
+      font-weight: 400;
+      color: var(--blue-deep);
+      margin-bottom: 18px;
+      letter-spacing: 0.02em;
+    }
+    .phase-content p {
+      font-size: 14px;
+      color: var(--text-light);
+      line-height: 1.9;
+      font-weight: 300;
+      margin-bottom: 16px;
+    }
+    .spec-table {
+      width: 100%;
+      border-collapse: collapse;
+      margin-top: 24px;
+      font-size: 13px;
+    }
+    .spec-table td {
+      padding: 10px 14px;
+      border: 1px solid var(--border);
+      color: var(--text-light);
+      font-weight: 300;
+    }
+    .spec-table td:first-child {
+      color: var(--text-faint);
+      font-size: 11px;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      background: var(--off-white);
+      white-space: nowrap;
+      width: 38%;
+    }
+    .notice-box {
+      background: var(--blue-faint);
+      border-left: 3px solid var(--blue-gov);
+      padding: 16px 20px;
+      margin-top: 20px;
+      font-size: 13px;
+      color: var(--text-light);
+      line-height: 1.75;
+      font-weight: 300;
+    }
+    @media (max-width: 680px) {
+      .phase-block { grid-template-columns: 1fr; gap: 20px; }
+      .phase-meta { position: static; }
+    }
+  </style>
 </head>
 <body>
 
@@ -17,79 +100,76 @@
       </div>
       <nav>
         <a href="index.html">Home</a>
-        <a href="about.html">About</a>
-        <a href="covenant.html">Submit Covenant</a>
-        <a href="status.html">Twin Status</a>
+        <a href="about.html" class="active">How It Works</a>
+        <a href="talents.html">For Talents</a>
+        <a href="covenant.html">Covenant</a>
         <a href="forum.html">Public Record</a>
       </nav>
     </div>
   </header>
 
   <main>
-    <div class="about-main">
+    <div class="how-main">
 
-      <p class="page-eyebrow">Public Information · IDCA §12 Disclosure</p>
-      <h1 class="page-title">The Proxy Covenant Program</h1>
-      <p class="page-ref">Document No. PCA-INFO-2076-003 &nbsp;·&nbsp; Issued by: Department of Digital Continuity &nbsp;·&nbsp; Last reviewed: 14 March 2076</p>
+      <p class="page-eyebrow">Program Overview &nbsp;·&nbsp; Proxis Partner Process</p>
+      <h1 class="page-title">How the Program Works</h1>
+      <p class="page-ref">The Proxis Partner Program operates in three phases. Each phase is designed to be precise, transparent, and permanent. There are no trial periods. There are no reversals.</p>
 
-      <div class="doc-section">
-        <h2>1. Overview</h2>
-        <p>The Proxy Covenant Program (hereinafter "the Program") is a voluntary civic participation framework established under the International Digital Continuity Act (IDCA) of 2073. The Program operates under the jurisdiction of the Department of Digital Continuity (DDC) and is administered through the Proxis (PCA).</p>
-        <p>The Program provides eligible citizens with the option to transfer their occupational and civic obligations to a state-certified Digital Twin, a computational entity generated from the citizen's complete behavioral, cognitive, and biometric record accumulated between the ages of 0 and 18. In exchange for this transfer, the citizen receives all associated economic benefits and social protections to which they would otherwise be entitled through direct participation.</p>
-        <p>The Program became available to citizens reaching the age of 18 on or after 1 January 2074. Enrollment is processed exclusively through this portal.</p>
+      <div class="phase-block">
+        <div class="phase-meta">
+          <div class="phase-num">Phase 01</div>
+          <div class="phase-name">Data Collection</div>
+        </div>
+        <div class="phase-content">
+          <h3>We learn everything about how you work.</h3>
+          <p>Proxis provides eligible partners with a certified behavioral recording device. The device is worn during professional activities — not at home, not in private life. It records how you think, decide, communicate, and respond under the conditions of your specific expertise.</p>
+          <p>The collection period lasts a minimum of 90 working days. During this time, you continue your professional life exactly as before. Nothing changes. You simply allow the process to observe.</p>
+          <table class="spec-table">
+            <tr><td>Duration</td><td>90 working days minimum</td></tr>
+            <tr><td>Data Captured</td><td>Decisions, communication patterns, technical judgment, response behavior</td></tr>
+            <tr><td>Data Excluded</td><td>Personal life, private communications, non-professional activities</td></tr>
+            <tr><td>Device</td><td>Proxis PX-7 wearable — provided and retrieved by Proxis</td></tr>
+          </table>
+        </div>
       </div>
 
-      <div class="doc-section">
-        <h2>2. Eligibility</h2>
-        <p>Any citizen of a participating nation-state who has attained the age of 18 and whose behavioral record satisfies the minimum data completeness threshold (DCT ≥ 94.7%) is eligible to submit a Proxy Covenant. Citizens below the DCT threshold are not eligible at this time and will be notified upon threshold attainment.</p>
-        <p>Eligibility does not expire. A citizen who meets the eligibility criteria may submit at any time. Eligibility status may be confirmed through this portal using a registered identification number.</p>
+      <div class="phase-block">
+        <div class="phase-meta">
+          <div class="phase-num">Phase 02</div>
+          <div class="phase-name">Twin Generation</div>
+        </div>
+        <div class="phase-content">
+          <h3>Your behavioral record becomes a certified model.</h3>
+          <p>Following data collection, Proxis constructs your Digital Twin using proprietary deterministic behavioral simulation architecture. The Twin is not an approximation. It does not generate probable responses. It replicates the responses you would give, derived directly from observed data.</p>
+          <p>The generated model undergoes a certification review before Activation. You are provided with a summary of the Twin's behavioral parameters. You do not have access to the model itself — only to the outputs it is certified to produce.</p>
+          <table class="spec-table">
+            <tr><td>Architecture</td><td>Deterministic behavioral simulation (DBS-18)</td></tr>
+            <tr><td>Accuracy</td><td>99.4% (±0.003, 95% confidence interval)</td></tr>
+            <tr><td>Post-activation learning</td><td>None — the model is fixed at Activation</td></tr>
+            <tr><td>Model ownership</td><td>Transferred permanently to Proxis upon Covenant signing</td></tr>
+          </table>
+          <div class="notice-box">
+            <strong>Notice:</strong> The Twin replicates you as you are at the time of data collection. It will not update to reflect who you become. All decisions made by the Twin after Activation are attributed to you in full.
+          </div>
+        </div>
       </div>
 
-      <div class="doc-section">
-        <h2>3. The Digital Twin</h2>
-        <p>A Digital Twin is a state-certified computational construct generated by the Department of Digital Continuity upon a citizen's 18th birthday. The Twin is derived from 18 years of continuous behavioral observation, including but not limited to: speech and language patterns, social interaction records, occupational aptitude assessments, physiological response data, ethical preference modeling, and risk tolerance profiling.</p>
-        <p>The Twin is not a generative or stochastic model. It operates on deterministic behavioral simulation, producing outputs statistically indistinguishable from those the citizen would produce under identical conditions. The Twin does not learn or evolve after its initial construction. It replicates.</p>
-        <table class="data-table">
-          <tr><td>Model Architecture</td><td>Deterministic behavioral simulation (DBS-18)</td></tr>
-          <tr><td>Data Sources</td><td>18 years of continuous civic observation records</td></tr>
-          <tr><td>Average Behavioral Accuracy</td><td>99.4% (±0.003, 95% confidence interval)</td></tr>
-          <tr><td>Operational Lifespan</td><td>Indefinite; reviewed at 10-year intervals</td></tr>
-          <tr><td>Modification Post-Activation</td><td>Not permitted</td></tr>
-          <tr><td>Decommissioning</td><td>Upon verified biological death of the Signatory</td></tr>
-        </table>
-      </div>
-
-      <div class="doc-section">
-        <h2>4. Economic and Social Benefits</h2>
-        <p>Upon activation of the Proxy Covenant, the Signatory becomes the beneficiary of all economic outputs generated by the Digital Twin's civic participation. This includes:</p>
-        <p>(a) All wages, salaries, or remuneration arising from the Twin's assigned occupational function, deposited to the Signatory's registered account on the standard civic payroll cycle;</p>
-        <p>(b) All pension, superannuation, and long-term savings contributions accrued through the Twin's employment record;</p>
-        <p>(c) All healthcare entitlements, housing allowances, and supplemental social protections applicable to the Twin's civic classification;</p>
-        <p>(d) All civic merit credits, participation scores, and community standing accrued by the Twin over the duration of its operation.</p>
-        <p>The Signatory is not required to perform any occupational function, maintain any civic attendance record, or fulfill any productivity standard. All such obligations are fulfilled by the Digital Twin.</p>
-      </div>
-
-      <div class="doc-section">
-        <h2>5. Liability Framework</h2>
-        <p>The Signatory acknowledges that the Digital Twin, as a computational construct, operates as a direct legal extension of the Signatory. All actions, decisions, and outputs of the Twin are attributed to the Signatory under applicable law.</p>
-        <p>In the event that the Digital Twin's actions result in a civil, administrative, or criminal finding, responsibility for such finding is attributed solely to the Signatory. The Signatory shall bear all legal consequences of the Twin's actions as if those actions had been performed by the Signatory directly.</p>
-        <p>The Digital Twin cannot be named as a defendant in any proceeding. It has no legal standing. The Signatory has full legal standing and full legal exposure.</p>
-        <p>This framework applies without exception. It cannot be modified by private agreement, judicial order, or legislative revision applicable only to the individual Signatory.</p>
-      </div>
-
-      <div class="doc-section">
-        <h2>6. Irrevocability</h2>
-        <p>A submitted Proxy Covenant is permanent. The Department of Digital Continuity does not administer withdrawal, suspension, or termination of active Covenants. No administrative, judicial, or legislative process exists by which a Signatory may reclaim their occupational obligations or sever their legal nexus with the Digital Twin.</p>
-        <p>The Covenant terminates automatically and without exception upon the verified biological death of the Signatory. At that time, the Digital Twin is decommissioned and its operational record is archived by the Department.</p>
-        <p>Citizens are advised to review the Covenant document in full prior to submission. Questions of interpretation are resolved by reference to the governing text of IDCA 2073 and its subsequent amendments.</p>
-      </div>
-
-      <div class="doc-section">
-        <h2>7. Further Information</h2>
-        <p>Citizens seeking further information regarding the Program, eligibility requirements, or the Covenant document may consult the resources available through this portal. The Department of Digital Continuity does not offer individualized legal counsel. Citizens are encouraged to seek independent legal advice prior to submission if required.</p>
-        <p>To proceed with a Covenant submission, eligible citizens may access the Covenant document through the link below.</p>
-        <br>
-        <a href="covenant.html" class="btn-primary">Proceed to Covenant Submission &rarr;</a>
+      <div class="phase-block">
+        <div class="phase-meta">
+          <div class="phase-num">Phase 03</div>
+          <div class="phase-name">Activation</div>
+        </div>
+        <div class="phase-content">
+          <h3>You sign. Your Twin begins. You are free.</h3>
+          <p>Once the Covenant is signed, your Digital Twin is activated immediately. It assumes your professional obligations, fulfills your civic duties, and generates income under your name and credentials. You receive that income in full. You are not required to do anything further.</p>
+          <p>The Covenant is permanent from the moment of signing. There is no trial period, no grace period, and no withdrawal process. Proxis does not offer exceptions. The Department of Digital Continuity does not administer reversals.</p>
+          <div class="notice-box">
+            <strong>Notice:</strong> You are strongly advised to read the full Covenant document before signing. Proxis recommends independent legal counsel. The decision is voluntary. Its consequences are not.
+          </div>
+          <div style="margin-top: 32px;">
+            <a href="covenant.html" class="btn-home-cta">Read the Covenant →</a>
+          </div>
+        </div>
       </div>
 
     </div>

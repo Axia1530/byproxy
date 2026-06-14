@@ -608,3 +608,220 @@ footer {
   .sig-row { grid-template-columns: 1fr; }
   .benefits-grid { grid-template-columns: 1fr; }
 }
+
+/* ── HOMEPAGE SECTIONS ── */
+.section-eyebrow {
+  font-size: 11px;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--blue-gov);
+  margin-bottom: 16px;
+}
+.section-title {
+  font-family: 'Cinzel', serif;
+  font-size: clamp(22px, 3vw, 36px);
+  font-weight: 400;
+  color: var(--blue-deep);
+  line-height: 1.3;
+  margin-bottom: 16px;
+}
+.section-sub {
+  font-size: 15px;
+  color: var(--text-light);
+  font-weight: 300;
+  max-width: 560px;
+  line-height: 1.8;
+  margin-bottom: 48px;
+}
+
+/* 数字统计 */
+.home-stats {
+  background: var(--blue-deep);
+  padding: 56px 32px;
+}
+.stats-inner {
+  max-width: 1100px;
+  margin: 0 auto;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 24px;
+  flex-wrap: wrap;
+}
+.stat-item { text-align: center; flex: 1; min-width: 140px; }
+.stat-num {
+  font-family: 'Exo 2', sans-serif;
+  font-size: clamp(28px, 4vw, 44px);
+  font-weight: 700;
+  color: #ffffff;
+  letter-spacing: 0.02em;
+  margin-bottom: 8px;
+}
+.stat-label {
+  font-size: 11px;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: rgba(255,255,255,0.45);
+}
+.stat-divider {
+  width: 1px;
+  height: 48px;
+  background: rgba(255,255,255,0.12);
+  flex-shrink: 0;
+}
+
+/* 流程 */
+.home-process {
+  background: var(--white);
+  padding: 96px 32px;
+}
+.process-inner { max-width: 1100px; margin: 0 auto; }
+.process-steps {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 48px;
+  margin-top: 56px;
+}
+.step-num {
+  font-family: 'Exo 2', sans-serif;
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.2em;
+  color: var(--blue-gov);
+  margin-bottom: 20px;
+}
+.step-title {
+  font-family: 'Cinzel', serif;
+  font-size: 15px;
+  font-weight: 500;
+  color: var(--blue-deep);
+  margin-bottom: 14px;
+  letter-spacing: 0.04em;
+}
+.step-body {
+  font-size: 14px;
+  color: var(--text-light);
+  line-height: 1.85;
+  font-weight: 300;
+}
+
+/* 批判性追问 */
+.home-question {
+  background: #0D2B52;
+  padding: 120px 32px;
+}
+.question-inner {
+  max-width: 900px;
+  margin: 0 auto;
+  text-align: center;
+}
+.question-text {
+  font-family: 'Cinzel', serif;
+  font-size: clamp(22px, 3.5vw, 42px);
+  font-weight: 400;
+  color: #ffffff;
+  line-height: 1.4;
+  letter-spacing: 0.02em;
+  margin-bottom: 28px;
+}
+.question-sub {
+  font-size: 14px;
+  color: rgba(255,255,255,0.4);
+  letter-spacing: 0.06em;
+  font-weight: 300;
+}
+
+/* 招募职业 */
+.home-talents {
+  background: var(--off-white);
+  padding: 96px 32px;
+}
+.talents-inner { max-width: 1100px; margin: 0 auto; }
+.talent-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 2px;
+}
+.talent-card {
+  background: var(--white);
+  padding: 32px 28px;
+  border: 1px solid var(--border);
+  transition: border-color 0.2s;
+}
+.talent-card:hover { border-color: var(--blue-gov); }
+.talent-role {
+  font-family: 'Cinzel', serif;
+  font-size: 13px;
+  font-weight: 500;
+  color: var(--blue-deep);
+  letter-spacing: 0.06em;
+  margin-bottom: 12px;
+}
+.talent-desc {
+  font-size: 13px;
+  color: var(--text-light);
+  line-height: 1.75;
+  font-weight: 300;
+}
+.btn-home-cta {
+  display: inline-block;
+  border: 1px solid var(--blue-gov);
+  color: var(--blue-gov);
+  padding: 14px 36px;
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  text-decoration: none;
+  transition: background 0.2s, color 0.2s;
+}
+.btn-home-cta:hover { background: var(--blue-gov); color: #fff; text-decoration: none; }
+
+/* CTA */
+.home-cta {
+  background: var(--white);
+  padding: 96px 32px;
+  border-top: 1px solid var(--border);
+}
+.cta-inner {
+  max-width: 600px;
+  margin: 0 auto;
+  text-align: center;
+}
+.cta-title {
+  font-family: 'Cinzel', serif;
+  font-size: clamp(24px, 3vw, 36px);
+  font-weight: 400;
+  color: var(--blue-deep);
+  margin-bottom: 16px;
+}
+.cta-sub {
+  font-size: 15px;
+  color: var(--text-light);
+  font-weight: 300;
+  margin-bottom: 40px;
+  line-height: 1.7;
+}
+.btn-cta-primary {
+  display: inline-block;
+  background: var(--blue-gov);
+  color: #ffffff;
+  padding: 16px 48px;
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  text-decoration: none;
+  transition: background 0.2s;
+}
+.btn-cta-primary:hover { background: var(--blue-deep); text-decoration: none; }
+
+@media (max-width: 768px) {
+  .stats-inner { gap: 32px; }
+  .stat-divider { display: none; }
+  .process-steps { grid-template-columns: 1fr; gap: 32px; }
+  .talent-grid { grid-template-columns: 1fr 1fr; }
+}
+@media (max-width: 480px) {
+  .talent-grid { grid-template-columns: 1fr; }
+}
