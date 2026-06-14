@@ -66,11 +66,9 @@
     }
     .slide.active { opacity: 1; }
 
-    /* 占位图片 — 真实图片替换后删除这段 */
-    .slide:nth-child(1) .slide-bg { background: linear-gradient(135deg, #0a0a14 0%, #1a1a2e 40%, #16213e 100%); }
-    .slide:nth-child(2) .slide-bg { background: linear-gradient(135deg, #0f0c0c 0%, #2c1810 40%, #1a0a0a 100%); }
-    .slide:nth-child(3) .slide-bg { background: linear-gradient(135deg, #080c10 0%, #0d2137 40%, #071520 100%); }
-    .slide:nth-child(4) .slide-bg { background: linear-gradient(135deg, #0c0c0c 0%, #1c1c1c 40%, #111111 100%); }
+    /* 未放图片的幻灯片显示深色背景 */
+    .slide:nth-child(3) .slide-bg { background-color: #080c10; }
+    .slide:nth-child(4) .slide-bg { background-color: #0c0c0c; }
 
     .slide-bg {
       position: absolute;
