@@ -70,6 +70,13 @@
     .slide:nth-child(3) .slide-bg { background-color: #080c10; }
     .slide:nth-child(4) .slide-bg { background-color: #0c0c0c; }
 
+    /* 第3张图顶部带文字，避免被固定导航栏遮挡 */
+    .slide:nth-child(3) .slide-bg {
+      top: 64px;
+      height: calc(100% - 64px);
+      background-position: center top;
+    }
+
     .slide-bg {
       position: absolute;
       inset: 0;
@@ -327,7 +334,7 @@
     <section class="home-stats">
       <div class="stats-inner">
         <div class="stat-item">
-          <div class="stat-num">2,847,391</div>
+          <div class="stat-num">24,612</div>
           <div class="stat-label">Active Digital Twins</div>
         </div>
         <div class="stat-divider"></div>
@@ -342,8 +349,8 @@
         </div>
         <div class="stat-divider"></div>
         <div class="stat-item">
-          <div class="stat-num">$0</div>
-          <div class="stat-label">Cost to You</div>
+          <div class="stat-num">$1.2M</div>
+          <div class="stat-label">Avg. Annual Partner Income</div>
         </div>
       </div>
     </section>
