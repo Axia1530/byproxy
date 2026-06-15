@@ -233,6 +233,12 @@
       .slide-counter { left: 20px; }
       /* 手机端图片锚点居中偏上，避免裁掉主体 */
       .slide-bg { background-position: center 30% !important; }
+      /* 第3张图为横版且自带文字，手机端改为完整显示，避免四角文字被裁掉 */
+      .slide:nth-child(3) .slide-bg {
+        background-size: contain !important;
+        background-position: center !important;
+        background-color: #080c10;
+      }
     }
   </style>
 </head>
