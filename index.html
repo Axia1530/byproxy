@@ -88,6 +88,17 @@
     }
     .slide.active .slide-bg { transform: scale(1); }
 
+    /* 移动端用：模糊放大背景层下，叠加完整显示的清晰图层 */
+    .slide-bg-fg {
+      position: absolute;
+      inset: 0;
+      background-size: contain;
+      background-position: center;
+      background-repeat: no-repeat;
+      display: none;
+      pointer-events: none;
+    }
+
     /* 占位图编号 */
     .slide-placeholder-num {
       position: absolute;
@@ -240,11 +251,15 @@
       .slide-counter { left: 20px; }
       /* 手机端图片锚点居中偏上，避免裁掉主体 */
       .slide-bg { background-position: center 30% !important; }
-      /* 第3张图为横版且自带文字，手机端改为完整显示，避免四角文字被裁掉 */
+      /* 第3张图为横版且自带文字：背景层模糊放大铺满，前景层完整显示原图 */
       .slide:nth-child(3) .slide-bg {
-        background-size: contain !important;
+        background-size: cover !important;
         background-position: center !important;
-        background-color: #080c10;
+        filter: blur(30px) brightness(0.45) saturate(1.2);
+        transform: scale(1.2) !important;
+      }
+      .slide:nth-child(3) .slide-bg-fg {
+        display: block;
       }
     }
   </style>
@@ -297,6 +312,7 @@
     <!-- Slide 3 -->
     <div class="slide">
       <div class="slide-bg" style="background-image: url('https://raw.githubusercontent.com/Axia1530/byproxy/main/slide3new.png');"></div>
+      <div class="slide-bg-fg" style="background-image: url('https://raw.githubusercontent.com/Axia1530/byproxy/main/slide3new.png');"></div>
       <div class="slide-overlay"></div>
     </div>
 
